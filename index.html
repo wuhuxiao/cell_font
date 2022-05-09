@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Personal Webpage</title>
+  <title>BRADENGELHARDT</title>
+  <meta name="description" content="Web designer and front-end developer">
+  <link href='https://fonts.googleapis.com/css?family=Raleway:100,200,400,600' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <!-- navbar header -->
+  
+  <!-- end navbar header -->
+
+  <!-- sidebar slider -->
+  <div class="nav-screen">
+    <i class="fa fa-times fa-3x"></i>
+    <div class="nav-container">
+      <div class="nav-links">
+        <ul id='myMenu'>
+          <li data-menuanchor="fourthPage"><a href="#modelExe">模型展示</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- end navbar slider -->
+
+  <!-- begin fullpage -->
+
+  <div id="fullpage">
+
+    <!-- begin section -->
+
+    <div class="section aboutme" data-anchor="aboutme">
+      <div class="opaque-bg animated fadeInDown">
+        <h1 style="color:white">微博评论情感语义分析</h1>
+        <img src="./model.png" alt="" width="1000" height="600">
+        <div class="train_config">
+          <label>MaxLength</label>
+          <select id="MaxLength">
+            <option value="64">64</option>
+            <option value="128" selected = "selected" >128</option>
+            <option value="256">256</option>
+          </select>
+          <label>WordVectorType</label>
+          <select id="WordVectorType">
+            <option value="word2vec" selected = "selected" >word2vec</option>
+            <option value="glove">glove</option>
+          </select>
+          <label>EmbeddingSize</label>
+          <select id="EmbeddingSize">
+            <option value="100">100</option>
+            <option value="200">200</option>
+            <option value="300" selected = "selected" >300</option>
+          </select>
+          <label>BatchSize</label>
+          <select id="BatchSize">
+            <option value="32" selected = "selected" >32</option>
+            <option value="64">64</option>
+            <option value="128">128</option>
+          </select>
+          <label>Epochs</label>
+          <select id="Epochs">
+            <option value="5" selected = "selected" >5</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <div class="wow fadeInUp" data-wow-delay="0.5s">
+          <button  type="submit"  id="train" >训练模型</button>
+          </div>
+      </div>
+    </div>
+    <!-- end section -->
+
+    
+
+    <!-- begin section -->
+
+    <div class="section modelExe" data-anchor="modelExe">
+      <div class="content wow fadeInDown"  style='background-color: rgba(255,255,255,0.8);
+      padding: 30px;' data-wow-delay="0.2s">
+        <h1>模型演示</h1>
+        <p>输入话题评论，分析情感好坏</p>
+        <br>
+        <div class="contact-form">
+
+          <form id="ajax-contact" method="post" role="form" action="contact.php" data-toggle="validator">
+
+            <div class="form-group has-feedback wow fadeInLeft" data-wow-delay="1s">
+              <textarea data-minlength="10" class="form-control" id="message" name="message" placeholder="话题评论" data-error="Minimum of 10 characters" required></textarea>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="wow fadeInUp" data-wow-delay="1s">
+              <button type="submit" id="submit" name="submit" class="btn btn-lg">情感语义分析</button>
+            </div>
+          </form>
+          <br>
+        </div>
+        <label  id = 'result'></label >
+      </div>
+    </div>
+    <!-- end section -->
+
+
+  </div>
+  <!-- end fullpage -->
+</body>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.js'></script><script  src="./script.js"></script>
+<script>
+</script>
+</body>
+</html>
