@@ -21,6 +21,8 @@ $(document).ready(function () {
 
   // Push the body and the nav over by 285px over
   var main = function () {
+    train()
+
     $(".fa-bars").click(function () {
       $(".nav-screen").animate(
         {
@@ -138,8 +140,59 @@ $(document).ready(function () {
   $(document).on("click", "#contact", function () {
     $.fn.fullpage.moveTo(4);
   });
+  var socket
+  // web socket
+  var train = function(){
+    socket = io.connect('http://localhost:8080/test');
+    socket.on('connect response', function(msg) {
+      console.log('connected',msg.data);
+      $('#log')[0].innerText = msg.data
+      //  ;
+    });
+    var Epoch = ''
+    var Step = ''
+    var Loss = ''
+    var old = ''
+    socket.on('train cnn', function(msg) {
+      let data = msg.data
+      console.log(data);
+      let show = old
+      if (data.indexOf("[..............................]") != -1) {
+        Step = data.slice(0,9)
+      }else if(data.indexOf("ETA") != -1) {
+        Loss = data
+        if (Epoch=='') {
+          Epoch = localStorage.getItem('Epoch');
+        }
+        show = Epoch+'-'+Step+Loss
+      }else if(data.indexOf("Epoch") != -1) {
+        Epoch = data
+        localStorage.setItem('Epoch', Epoch);
+      }else if(data.indexOf("") != -1) {
+        show = old
+      } else{
+        show = data
+      }
+      $('#log')[0].innerText = show
+      old = show
+      // if (data.indexOf("loss") != -1):
+      //   $('#log')[0].innerText = data
+      
+      //  ;
+    });
+    
+    // 向服务器通信
+    // $('form#emit').submit(function(event) {
+    //     socket.emit('my event', {data: $('#emit_data').val()});
+    //     return false;
+    // });
+    // $('form#broadcast').submit(function(event) {
+    //     socket.emit('my broadcast event', {data: $('#broadcast_data').val()});
+    //     return false;
+    // });
+  }
+
   $(document).on("click", "#train", function () {
-    console.log('begin trainnig');
     var MaxLength = $("#MaxLength")[0].value
     var WordVectorType = $("#WordVectorType")[0].value
     var EmbeddingSize = $("#EmbeddingSize")[0].value
@@ -150,28 +203,22 @@ $(document).ready(function () {
     // console.log('EmbeddingSize',EmbeddingSize);
     // console.log('BatchSize',BatchSize);
     // console.log('Epochs',Epochs);
-    var url = `http://localhost:8080/trainCNNModel?MaxLength=${MaxLength}&WordVectorType=${WordVectorType}&EmbeddingSize=${EmbeddingSize}&BatchSize=${BatchSize}&Epochs=${Epochs}`
-    console.log('url',url);
+    socket.emit('train cnn', {data: [MaxLength,WordVectorType,EmbeddingSize,BatchSize,Epochs]});
+    
+    // var url = `http://localhost:8080/trainCNNModel?MaxLength=${MaxLength}&WordVectorType=${WordVectorType}&EmbeddingSize=${EmbeddingSize}&BatchSize=${BatchSize}&Epochs=${Epochs}`
+    // console.log('url',url);
     // $.ajax({
     //   type: "GET",
-    //   url: 'http://localhost:8080/getCommentSenti',
-    //   data: formData
+    //   url: url
     // })
     //   .done(function (response) {
-    //     // Make sure that the formMessages div has the 'success' class.
-    //     $(formMessages).removeClass("error");
-    //     $(formMessages).addClass("success");
-
-    //     // Set the message text.
-    //     $("#result")[0].innerHTML = response
+        
     //   })
     //   .fail(function (data) {
-    //     // Make sure that the formMessages div has the 'error' class.
-    //     $(formMessages).removeClass("success");
-    //     $(formMessages).addClass("error");
-
+       
     //   });
   });
+  
   // smooth scrolling
   $(function () {
     $("a[href*=#]:not([href=#])").click(function () {
