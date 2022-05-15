@@ -194,10 +194,13 @@ $(document).ready(function () {
 
   $(document).on("click", "#train", function () {
     var MaxLength = $("#MaxLength")[0].value
-    var WordVectorType = $("#WordVectorType")[0].value
+    // var WordVectorType = $("#WordVectorType")[0].value
+    var WordVectorType =  "word2vec"
+    
     var EmbeddingSize = $("#EmbeddingSize")[0].value
     var BatchSize = $("#BatchSize")[0].value
     var Epochs = $("#Epochs")[0].value
+    console.log(WordVectorType);
     // console.log('MaxLength',MaxLength);
     // console.log('WordVectorType',WordVectorType);
     // console.log('EmbeddingSize',EmbeddingSize);
